@@ -14,6 +14,7 @@ import{
 
 import theme from './src/global/styles/theme' // Não precisa de chaves quando se utiliza a importação default
 import { Dashboard } from './src/screens/dashboard';
+import { HighlightCard } from './src/components/HighlightCard';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
