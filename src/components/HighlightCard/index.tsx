@@ -19,8 +19,8 @@ interface Props {
 //Criar um objeto para auxiliar na escolha do icone
 //name={icon[type]} a partir do icon acessar o type.
 const icon = {
-    up:'arrow-up-circle',
-    down:'arrow-down-circle',
+    up: 'arrow-up-circle',
+    down: 'arrow-down-circle',
     total: 'dollar-sign'
 }
 
@@ -45,3 +45,5 @@ export function HighlightCard(
         </Container>
     )
 };
+
+

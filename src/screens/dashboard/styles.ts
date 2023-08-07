@@ -38,7 +38,6 @@ export const Photo = styled.Image`
 
 export const User = styled.View`
     margin-left: 17px;
-    
 `;
 
 export const UserGreeting = styled.Text`
@@ -57,7 +56,6 @@ export const UserName = styled.Text`
 export const IconOff = styled(Foundation)`
     font-size: ${RFValue(24)}px;
     color: ${({theme}) => theme.colors.secondary};
-    
 `;
 
 export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para acessar os objetos da scrollView
@@ -68,4 +66,23 @@ export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para ac
     width:100%;
     position: absolute;
     margin-top: ${RFValue(130)}px;
+`;
+
+export const TitleSection = styled.Text`
+    width: 100%;
+    margin-top: ${RFPercentage(12)}px;
+    margin-bottom: ${RFValue(16)}px;
+    padding-left: 24px;
+
+    font-size: ${RFValue(18)}px;
+    font-family: ${({theme}) => theme.fonts.regular};
+`;
+
+export const Transactions = styled.ScrollView.attrs({
+    horizontal: false,
+    showsHorizontalScrollIndicator:false,
+    contentContainerStyle:{paddingHorizontal:24}
+    
+})`
+
 `;
