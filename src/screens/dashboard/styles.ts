@@ -68,21 +68,20 @@ export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para ac
     margin-top: ${RFValue(130)}px;
 `;
 
+export const Transactions = styled.View`
+    flex-direction: column;
+    padding: 0 24px 0 24px;
+
+`;
+
 export const TitleSection = styled.Text`
-    width: 100%;
-    margin-top: ${RFPercentage(12)}px;
+    margin-top: ${RFPercentage(11)}px;
     margin-bottom: ${RFValue(16)}px;
-    padding-left: 24px;
 
     font-size: ${RFValue(18)}px;
     font-family: ${({theme}) => theme.fonts.regular};
 `;
 
-export const Transactions = styled.ScrollView.attrs({
-    horizontal: false,
-    showsHorizontalScrollIndicator:false,
-    contentContainerStyle:{paddingHorizontal:24}
-    
-})`
+export const TransactionList = styled.FlatList.attrs({
 
-`;
+})``;

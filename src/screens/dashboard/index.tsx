@@ -13,12 +13,45 @@ import {
     HighlightCards,
     Transactions,
     TitleSection,
+    TransactionList,
 
 } from "./styles";
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard } from "../../components/TransactionCard";
+import { getBottomSpace } from "react-native-iphone-x-helper";
 
 export function Dashboard() {
+    const data = [
+        {
+            title: 'Desenvolvimento de site',
+            amount: 'R$ 12.000,00',
+            category: {
+                name: 'Vendas',
+                icon: 'home',
+            },
+            dateTransaction: '13/04/2020',
+        },
+        {
+            title: 'Desenvolvimento de site',
+            amount: 'R$ 12.000,00',
+            category: {
+                name: 'Vendas',
+                icon: 'home',
+            },
+            dateTransaction: '13/04/2020',
+        },
+
+        {
+            title: 'Desenvolvimento de site',
+            amount: 'R$ 12.000,00',
+            category: {
+                name: 'Vendas',
+                icon: 'home',
+            },
+            dateTransaction: '13/04/2020',
+        },
+    ]
+
     return (
         <Container >
             <Header>
@@ -54,30 +87,12 @@ export function Dashboard() {
                     type="total"
                 />
             </HighlightCards>
-            <TitleSection>Listagem</TitleSection>
+
             <Transactions>
-                <TransactionCard
-                    title='Desenvolvimento de site'
-                    amount='R$ 12.000,00'
-                    dateTransaction='13/04/2020'
-                    type="enter"
-                    typeIcon="entryValue"
-                />
-                <TransactionCard
-                    title='Hamburgueria Pizzy'
-                    amount='- R$ 59,00'
-                    dateTransaction='10/04/2020'
-                    type="exit"
-                    typeIcon="food"
-
-                />
-                <TransactionCard
-                    title='Aluguel do apartamento'
-                    amount='- R$ 770,00'
-                    dateTransaction='08/04/2020'
-                    type="exit"
-                    typeIcon="home"
-
+                <TitleSection>Listagem</TitleSection>
+                <TransactionList
+                    data={data}
+                    renderItem={({ item }) => <TransactionCard data={item} />}
                 />
             </Transactions>
         </Container>

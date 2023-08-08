@@ -11,46 +11,42 @@ import {
     TypeTransacition
 } from "./styles";
 
-/*interface CategoryProps {
+interface CategoryProps {
     name: string; //salario
     icon: string;
-}*/
+}
 
-interface Props {
+interface Data {
     title: string;
     amount: string;
+    category: CategoryProps;
     dateTransaction: string;
-    //category: CategoryProps;
-    type: 'exit' | 'enter';
-    typeIcon: 'entryValue' | 'food' | 'home'
+}
+interface Props {
+    data: Data; 
 }
 
 const icon = {
+    name: 'Salario',
     entryValue: 'dollar-sign',
     food: 'coffee',
-    home: 'home'
+    home: 'home',
+
 }
 
 export function TransactionCard(
-    {   type,
-        title,
-        amount,
-        dateTransaction,
-        typeIcon,
-       // category,
-        
-    }: Props
+    { data }: Props
 ) {
     return (
         <Container>
             <Header>
-                <Title>{title}</Title>
-                <Amount type={type}>{amount}</Amount>
+                <Title>{data.title}</Title>
+                <Amount type={'enter'}>{data.amount}</Amount>
             </Header>
             <Footer>
-                <IconTransaction name={icon[typeIcon]} type={typeIcon}/>
-                <TypeTransacition>Vendas</TypeTransacition>
-                <DateTransaction>{dateTransaction}</DateTransaction>
+                <IconTransaction name={data.category.icon} /*type={typeIcon}*/ />
+                <TypeTransacition>{data.category.name}</TypeTransacition>
+                <DateTransaction>{data.dateTransaction}</DateTransaction>
             </Footer>
         </Container>
     )

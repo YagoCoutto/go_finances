@@ -5,7 +5,7 @@ import theme from "../../global/styles/theme";
 
 
 interface typeProps {
-    type: 'exit' | 'enter';
+    type: 'exit' | 'Vendas';
 }
 
 export const Container = styled.View<typeProps>`
