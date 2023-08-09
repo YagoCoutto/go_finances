@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import {Foundation} from '@expo/vector-icons'
+import { Foundation } from '@expo/vector-icons'
 
 
 export const Container = styled.View`
@@ -42,26 +42,26 @@ export const User = styled.View`
 
 export const UserGreeting = styled.Text`
     font-size: ${RFValue(16)}px;
-    color: ${({theme}) => theme.colors.shappe};
-    font-family: ${({theme}) => theme.fonts.regular};
+    color: ${({ theme }) => theme.colors.shappe};
+    font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const UserName = styled.Text`
     font-size: ${RFValue(16)}px;
-    color: ${({theme}) => theme.colors.shappe};
-    font-family: ${({theme}) => theme.fonts.bold};
+    color: ${({ theme }) => theme.colors.shappe};
+    font-family: ${({ theme }) => theme.fonts.bold};
     margin-top: -5px;
 `;
 
 export const IconOff = styled(Foundation)`
     font-size: ${RFValue(24)}px;
-    color: ${({theme}) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para acessar os objetos da scrollView
     horizontal: true,
-    showsHorizontalScrollIndicator:false,
-    contentContainerStyle:{paddingHorizontal:24}
+    showsHorizontalScrollIndicator: false,
+    contentContainerStyle: { paddingHorizontal: 24 }
 })`
     width:100%;
     position: absolute;
@@ -69,9 +69,8 @@ export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para ac
 `;
 
 export const Transactions = styled.View`
-    flex-direction: column;
+    flex: 1;
     padding: 0 24px 0 24px;
-
 `;
 
 export const TitleSection = styled.Text`
@@ -79,9 +78,13 @@ export const TitleSection = styled.Text`
     margin-bottom: ${RFValue(16)}px;
 
     font-size: ${RFValue(18)}px;
-    font-family: ${({theme}) => theme.fonts.regular};
+    font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const TransactionList = styled.FlatList.attrs({
-
-})``;
+    horizontal: false,
+    showsVerticalScrollIndicator: false
+    
+})`
+    height:100%;
+`;

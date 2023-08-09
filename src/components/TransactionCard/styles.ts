@@ -5,7 +5,7 @@ import theme from "../../global/styles/theme";
 
 
 interface typeProps {
-    type: 'exit' | 'Vendas';
+    type: 'positive' | 'negative';
 }
 
 export const Container = styled.View<typeProps>`
@@ -32,8 +32,7 @@ export const Title = styled.Text<typeProps>`
 export const Amount = styled.Text<typeProps>`
         font-size: ${RFValue(20)}px;
         font-family: ${({ theme }) => theme.fonts.regular};
-        color: ${({ theme, type }) => type === 'enter' ? theme.colors.sucess : theme.colors.attention};
-
+        color: ${({ theme, type }) => type === 'positive' ? theme.colors.sucess : theme.colors.attention};
     
     `;
 

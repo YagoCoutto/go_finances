@@ -19,33 +19,48 @@ import {
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard } from "../../components/TransactionCard";
 import { getBottomSpace } from "react-native-iphone-x-helper";
+import { View } from "react-native";
 
 export function Dashboard() {
     const data = [
         {
+            type: 'positive',
             title: 'Desenvolvimento de site',
             amount: 'R$ 12.000,00',
             category: {
                 name: 'Vendas',
-                icon: 'home',
+                icon: 'dollar-sign',
             },
             dateTransaction: '13/04/2020',
         },
         {
-            title: 'Desenvolvimento de site',
-            amount: 'R$ 12.000,00',
+            type: 'negative',
+            title: 'Hamburgueria Pizzy',
+            amount: '- R$ 59,00',
             category: {
-                name: 'Vendas',
+                name: 'Alimentação',
+                icon: 'coffee',
+            },
+            dateTransaction: '13/04/2020',
+        },
+
+        {
+            type: 'negative',
+            title: 'Aluguel do apartamento',
+            amount: 'R$ 770,00',
+            category: {
+                name: 'Casa',
                 icon: 'home',
             },
             dateTransaction: '13/04/2020',
         },
 
         {
-            title: 'Desenvolvimento de site',
-            amount: 'R$ 12.000,00',
+            type: 'positive',
+            title: 'Salario',
+            amount: 'R$ 8.000,00',
             category: {
-                name: 'Vendas',
+                name: 'Salario',
                 icon: 'home',
             },
             dateTransaction: '13/04/2020',
@@ -90,9 +105,13 @@ export function Dashboard() {
 
             <Transactions>
                 <TitleSection>Listagem</TitleSection>
+
                 <TransactionList
                     data={data}
                     renderItem={({ item }) => <TransactionCard data={item} />}
+                    contentContainerStyle ={{
+                        paddingBottom: getBottomSpace()
+                    }}
                 />
             </Transactions>
         </Container>
