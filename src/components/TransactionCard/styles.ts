@@ -8,9 +8,14 @@ interface typeProps {
     type: 'positive' | 'negative';
 }
 
+export const ViewT = styled.View`
+    width: 100%;
+    background-color: aquamarine;
+`;
+
 export const Container = styled.View<typeProps>`
     background-color: ${({ theme }) => theme.colors.shappe};
-    width: ${RFValue(327)}px;
+    width: 100%;
     height: ${RFValue(128)}px;
     border-radius: 8px;
     margin-bottom: 16px;

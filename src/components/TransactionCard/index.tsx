@@ -8,8 +8,10 @@ import {
     Amount,
     DateTransaction,
     IconTransaction,
-    TypeTransacition
+    TypeTransacition,
+    ViewT
 } from "./styles";
+import { View } from "react-native";
 
 interface CategoryProps {
     name: string; //salario
@@ -25,23 +27,29 @@ interface Data {
 };
 
 interface Props {
-    data: Data; 
+    data: Data;
 };
 
 export function TransactionCard(
     { data }: Props
 ) {
     return (
-        <Container>
-            <Header>
-                <Title>{data.title}</Title>
-                <Amount type={data.type}>{data.amount}</Amount>
-            </Header>
-            <Footer>
-                <IconTransaction name={data.category.icon}/>
-                <TypeTransacition>{data.category.name}</TypeTransacition>
-                <DateTransaction>{data.dateTransaction}</DateTransaction>
-            </Footer>
-        </Container>
+        <ViewT>
+
+            <Container>
+                <Header>
+                    <Title>{data.title}</Title>
+                    <Amount type={data.type}>
+                        {data.type === 'negative' ? '- ' : ''}
+                        {data.amount}
+                    </Amount>
+                </Header>
+                <Footer>
+                    <IconTransaction name={data.category.icon} />
+                    <TypeTransacition>{data.category.name}</TypeTransacition>
+                    <DateTransaction>{data.dateTransaction}</DateTransaction>
+                </Footer>
+            </Container>
+        </ViewT>
     )
 };

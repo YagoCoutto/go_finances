@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Foundation } from '@expo/vector-icons'
+import { getBottomSpace } from "react-native-iphone-x-helper";
 
 
 export const Container = styled.View`
@@ -71,19 +72,22 @@ export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para ac
 export const Transactions = styled.View`
     flex: 1;
     padding: 0 24px 0 24px;
-`;
+    `;
 
 export const TitleSection = styled.Text`
     margin-top: ${RFPercentage(11)}px;
     margin-bottom: ${RFValue(16)}px;
-
+    
     font-size: ${RFValue(18)}px;
     font-family: ${({ theme }) => theme.fonts.regular};
-`;
+    `;
 
 export const TransactionList = styled.FlatList.attrs({
     horizontal: false,
-    showsVerticalScrollIndicator: false
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle :{
+        paddingBottom: getBottomSpace()
+    }
     
 })`
     height:100%;

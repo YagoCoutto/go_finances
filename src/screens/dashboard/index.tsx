@@ -36,7 +36,7 @@ export function Dashboard() {
         {
             type: 'negative',
             title: 'Hamburgueria Pizzy',
-            amount: '- R$ 59,00',
+            amount: 'R$ 59,00',
             category: {
                 name: 'Alimentação',
                 icon: 'coffee',
@@ -109,9 +109,7 @@ export function Dashboard() {
                 <TransactionList
                     data={data}
                     renderItem={({ item }) => <TransactionCard data={item} />}
-                    contentContainerStyle ={{
-                        paddingBottom: getBottomSpace()
-                    }}
+                    
                 />
             </Transactions>
         </Container>
