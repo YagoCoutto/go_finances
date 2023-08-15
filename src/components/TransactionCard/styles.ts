@@ -10,7 +10,6 @@ interface typeProps {
 
 export const ViewT = styled.View`
     width: 100%;
-    background-color: aquamarine;
 `;
 
 export const Container = styled.View<typeProps>`

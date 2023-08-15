@@ -11,14 +11,13 @@ import {
     TypeTransacition,
     ViewT
 } from "./styles";
-import { View } from "react-native";
 
 interface CategoryProps {
     name: string; //salario
     icon: string;
 };
 
-interface Data {
+export interface TransactionCardProps {
     type: 'positive' | 'negative';
     title: string;
     amount: string;
@@ -27,7 +26,7 @@ interface Data {
 };
 
 interface Props {
-    data: Data;
+    data: TransactionCardProps;
 };
 
 export function TransactionCard(
