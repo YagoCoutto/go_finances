@@ -7,10 +7,10 @@ export default {
         secondary_light: 'rgba(255, 135, 44, 0.3)', //Opacidade vai de 0 a 1
 
         sucess: '#12A454',
-        sucess_light: 'rgba(18, 164, 84, 0.5)',
+        sucess_light: 'rgba(18, 164, 84, 0.2)',
 
         attention: '#E83F5B',
-        attention_light: 'rgba(232, 63, 91, 0.5)',
+        attention_light: 'rgba(232, 63, 91, 0.2)',
 
         shappe: '#FFFFFF',
         title:'#363F5F',
