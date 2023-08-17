@@ -20,7 +20,7 @@ export const Container = styled(TouchableOpacity) <ContainerProps>`
     flex-direction: row;
 
     border-radius: 5px;
-    border: 1.5px solid ${({ theme }) => theme.colors.text};
+    border: 1px solid ${({ theme }) => theme.colors.text};
     padding: ${RFValue(16)}px;
 
     ${({ isActive, type }) => isActive && type === 'up' && css`

@@ -1,14 +1,15 @@
 import React from "react";
 import { Container, Title, Icon } from "./styles";
+import { TouchableOpacityProps } from "react-native";
 
 
-interface Props {
+interface Props extends TouchableOpacityProps {
     title: string;
 }
 
-export function CategorySelect({title}: Props){
+export function CategorySelectButton({title, ...rest}: Props){
     return(
-        <Container>
+        <Container {...rest}>
             <Title>{title}</Title>
             <Icon name='chevron-down'/>
         </Container>

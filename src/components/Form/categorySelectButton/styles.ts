@@ -4,7 +4,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
     width: 100%;
     flex-direction: row;
     align-items: center;
