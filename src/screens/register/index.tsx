@@ -12,11 +12,16 @@ import { CategorySelect } from "../CategorySelect";
 export function Register() {
     const [transactionType, setTransactionType] = useState(''); //altera o fundo do button income/outcome
     const [ModalCategorySelect, setModalCategorySelect] = useState(false)
+    const [name, setName] = useState('')
 
     const [category, setCategory] = useState({
         key: 'category',
         name: 'Categoria',
     })
+
+    function test(){
+        console.log(name)
+    }
 
     function handleTransactionTypeSelect(type: 'up' | 'down') {
         setTransactionType(type)
@@ -44,6 +49,7 @@ export function Register() {
                     <Input
                         placeholder="Nome"
                         placeholderTextColor={'#969CB2'}
+                        onChangeText={test}
                     />
                     <Input
                         placeholder="Preço"
@@ -64,7 +70,7 @@ export function Register() {
                     </AlignField>
 
                     <CategorySelectButton 
-                    title="Categoria" 
+                    title={category.name} 
                     onPress={handleOpenSelectCategory}
                     />
                 </Fields>
