@@ -8,20 +8,30 @@ import { CategorySelectButton } from "../../components/Form/categorySelectButton
 import { Modal } from "react-native";
 import { CategorySelect } from "../CategorySelect";
 
+import { InputForm } from "../../components/Form/inputForm";
+import { useForm } from 'react-hook-form';
+
+interface formDate {
+    name: string;
+    amount: string;
+}
+
 
 export function Register() {
     const [transactionType, setTransactionType] = useState(''); //altera o fundo do button income/outcome
     const [ModalCategorySelect, setModalCategorySelect] = useState(false)
-    const [name, setName] = useState('')
+    // const [name, setName] = useState('') Não será mais utilizado por conta do react hooks form
+    // const [amount, setAmount] = useState('') Não será mais utilizado por conta do react hooks form
 
     const [category, setCategory] = useState({
         key: 'category',
         name: 'Categoria',
     })
 
-    function test(){
-        console.log(name)
-    }
+    const {
+        control, //Para registrar os inputs do nosso formulario.
+        handleSubmit, //Função que pega todas as informações do formulario e envia.
+    } = useForm()
 
     function handleTransactionTypeSelect(type: 'up' | 'down') {
         setTransactionType(type)
@@ -36,6 +46,17 @@ export function Register() {
         setModalCategorySelect(false)
     }
 
+    function handleRegister(form: formDate) {
+        const data = {
+             name: form.name,
+          amount: form.amount,
+            transactionType,
+            category: category.name
+        }
+
+        console.log(data)
+    }
+
     return (
         <Container>
             <Header>
@@ -46,15 +67,20 @@ export function Register() {
 
             <Form>
                 <Fields>
-                    <Input
+                    <InputForm
+                        name="name" //Precisa passar o name para hooks.
+                        control={control} //Assinatura para saber quais inputs fazem parte do mesmo grupo.
                         placeholder="Nome"
                         placeholderTextColor={'#969CB2'}
-                        onChangeText={test}
+                    // onChangeText={text => setName(text)} Não será mais utilizado por conta do react hooks form.
                     />
-                    <Input
+                    <InputForm
+                        name='amount' //Precisa passar o name para hooks.
+                        control={control} //Assinatura para saber quais inputs fazem parte do mesmo grupo.
                         placeholder="Preço"
-                        keyboardType="numeric"
+                       // keyboardType="numeric"
                         placeholderTextColor={'#969CB2'}
+                    // onChangeText={text => setAmount(text)} Não será mais utilizado por conta do react hooks form.
                     />
                     <AlignField>
                         <TransactionTypeButton
@@ -69,14 +95,15 @@ export function Register() {
                             title="Outcome" />
                     </AlignField>
 
-                    <CategorySelectButton 
-                    title={category.name} 
-                    onPress={handleOpenSelectCategory}
+                    <CategorySelectButton
+                        title={category.name}
+                        onPress={handleOpenSelectCategory}
                     />
                 </Fields>
 
                 <Button
                     title="Enviar"
+                    onPress={handleSubmit(handleRegister)}//envolver o handleSubmit para enviar as inf.
                 />
             </Form>
             <Modal visible={ModalCategorySelect}>

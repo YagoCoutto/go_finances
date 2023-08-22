@@ -20,7 +20,7 @@ export const Title = styled.Text`
     padding: 18px 217px 17px 16px;
     font-size: ${RFValue(14)}px;
     font-family: ${({theme}) => theme.fonts.regular};
-    color: ${({theme}) => theme.colors.text};
+    color: ${({theme}) => theme.colors.title};
 `;
 
 export const Icon = styled(Feather)`
