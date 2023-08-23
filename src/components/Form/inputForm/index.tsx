@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Error } from "./styles";
 import { Input } from "../input";
 import { TextInputProps } from "react-native";
 import { Control, Controller } from "react-hook-form";
@@ -33,6 +33,7 @@ export function InputForm({
             */
            name={name}
             />
+            <Error>erro do campo</Error>
         </Container>
     );
 }
