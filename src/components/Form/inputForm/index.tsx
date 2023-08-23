@@ -1,18 +1,21 @@
 import React from "react";
-import { Container, Error } from "./styles";
-import { Input } from "../input";
 import { TextInputProps } from "react-native";
 import { Control, Controller } from "react-hook-form";
 
+import { Input } from "../input";
+
+import { Container, Error } from "./styles";
 
 interface Props extends TextInputProps {
     control: Control; //Para controlar o input.
     name: string; //Para ele conseguir diferenciar um input do outro.
+    error: string;
 }
 
 export function InputForm({
     control,
     name,
+    error,
     ...rest // pegar o resto das propriedades possiveis.
 }: Props) {
     return (
@@ -33,7 +36,7 @@ export function InputForm({
             */
            name={name}
             />
-            <Error>erro do campo</Error>
+            {error && <Error>{error}</Error>}
         </Container>
     );
 }

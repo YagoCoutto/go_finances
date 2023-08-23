@@ -25,8 +25,14 @@ interface formDate {
 
 const schema = Yup.object()
 .shape({
-    name: Yup.string().required('Nome é obrigatório'),
-    amount: Yup.number().typeError('Informe um valor numerico').required('Valor é obrigatório').positive('O valor precisa ser positivo')
+    name: Yup
+    .string()
+    .required('Nome é obrigatório'),
+    amount: Yup
+    .number()
+    .typeError('Informe um valor numerico')
+    .positive('O valor precisa ser positivo')
+    .required('Valor é obrigatório')
 })
 
 export function Register() {
@@ -109,7 +115,8 @@ export function Register() {
                             autoCapitalize="sentences" //para deixar a primeira letra maiuscula.
                             autoCorrect={false}
                             placeholderTextColor={'#969CB2'}
-                        // onChangeText={text => setName(text)} Não será mais utilizado por conta do react hooks form.
+                            error={errors.name && errors.name.message}
+                         // onChangeText={text => setName(text)} Não será mais utilizado por conta do react hooks form.
                         />
                         <InputForm
                             name='amount' //Precisa passar o name para hooks.
@@ -117,7 +124,8 @@ export function Register() {
                             placeholder="Preço"
                             keyboardType="numeric"
                             placeholderTextColor={'#969CB2'}
-                        // onChangeText={text => setAmount(text)} Não será mais utilizado por conta do react hooks form.
+                            error={errors.amount && errors.amount.message}
+                         // onChangeText={text => setAmount(text)} Não será mais utilizado por conta do react hooks form.
                         />
                         <AlignField>
                             <TransactionTypeButton
