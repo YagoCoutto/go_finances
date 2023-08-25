@@ -5,9 +5,9 @@ import {
     TouchableWithoutFeedback,
     Alert
  } from "react-native";
-import { useForm } from 'react-hook-form';
 
 import { InputForm } from "../../components/Form/inputForm";
+import { useForm } from 'react-hook-form';
 import { Button } from "../../components/Form/Button";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
 import { Container, Form, Header, Title, Fields, AlignField } from "./styles";
@@ -34,11 +34,10 @@ const schema = Yup.object()
     .positive('O valor não pode ser negativo')
 })
 
+
 export function Register() {
     const [transactionType, setTransactionType] = useState(''); //altera o fundo do button income/outcome
     const [ModalCategorySelect, setModalCategorySelect] = useState(false)
-    // const [name, setName] = useState('') Não será mais utilizado por conta do react hooks form
-    // const [amount, setAmount] = useState('') Não será mais utilizado por conta do react hooks form
 
     const [category, setCategory] = useState({
         key: 'category',
@@ -89,6 +88,7 @@ export function Register() {
             amount: form.amount,
             transactionType,
             category: category.name
+            
         }
 
         console.log(data)
@@ -114,7 +114,6 @@ export function Register() {
                             autoCorrect={false}
                             placeholderTextColor={'#969CB2'}
                             error={errors.name && errors.name.message}
-                         // onChangeText={text => setName(text)} Não será mais utilizado por conta do react hooks form.
                         />
                         <InputForm
                             name='amount' //Precisa passar o name para hooks.
@@ -123,7 +122,6 @@ export function Register() {
                             keyboardType="numeric"
                             placeholderTextColor={'#969CB2'}
                             error={errors.amount && errors.amount.message}
-                         // onChangeText={text => setAmount(text)} Não será mais utilizado por conta do react hooks form.
                         />
                         <AlignField>
                             <TransactionTypeButton

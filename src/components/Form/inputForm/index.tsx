@@ -7,7 +7,7 @@ import { Input } from "../input";
 import { Container, Error } from "./styles";
 
 interface Props extends TextInputProps {
-    control: Control; //Para controlar o input.
+    control: Control<any, object>; //Para controlar o input.
     name: string; //Para ele conseguir diferenciar um input do outro.
     error: string;
 }
@@ -21,12 +21,12 @@ export function InputForm({
     return (
         <Container>
             <Controller 
-            control={control}
-            render={({ field: {onChange, value}}) => (
+                control={control}
+                render={({ field: {onChange, value}}) => (
                 <Input
                 onChangeText={onChange}
                 value={value}
-                    {...rest}
+                {...rest}
                 />
             )} 
             //ira pegar algumas propriedades do input abaixo. 
