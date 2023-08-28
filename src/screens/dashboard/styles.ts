@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Foundation } from '@expo/vector-icons'
 import { getBottomSpace } from "react-native-iphone-x-helper";
+import { BorderlessButton } from 'react-native-gesture-handler'
 
 import {DataListProps} from '.'
 
@@ -55,12 +56,14 @@ export const UserName = styled.Text`
     color: ${({ theme }) => theme.colors.shappe};
     font-family: ${({ theme }) => theme.fonts.bold};
     margin-top: -5px;
-`;
+    `;
+
+export const LogoutButton = styled(BorderlessButton)``;
 
 export const IconOff = styled(Foundation)`
     font-size: ${RFValue(24)}px;
     color: ${({ theme }) => theme.colors.secondary};
-`;
+    `;
 
 export const HighlightCards = styled.ScrollView.attrs({ //Utilizar attrs para acessar os objetos da scrollView
     horizontal: true,

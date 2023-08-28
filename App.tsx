@@ -15,6 +15,7 @@ import {
 
 import theme from './src/global/styles/theme' // Não precisa de chaves quando se utiliza a importação default
 import { AppRoutes } from './src/routes/app.routes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,10 +30,11 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
   );
 }

@@ -1,25 +1,33 @@
 import React from "react";
+import {Platform} from "react-native";
+
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components/native'
 
 import { Dashboard } from "../screens/dashboard";
 import { Register } from "../screens/register";
+import { styled } from "styled-components";
 
-const Tab = createBottomTabNavigator();
+const {Navigator, Screen} = createBottomTabNavigator();
 
 export function AppRoutes() {
     const theme = useTheme()
 
     return (
-        <Tab.Navigator
+        <Navigator
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: theme.colors.secondary,
-                tabBarInactiveTintColor: theme.colors.text
+                tabBarInactiveTintColor: theme.colors.text,
+                tabBarLabelPosition: 'beside-icon',
+                tabBarStyle:{
+                    paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+                    height: 55,                    
+                }
             }}
         >
-            <Tab.Screen
+            <Screen
                 name="Listagem"
                 component={Dashboard}
                 options={{ tabBarIcon: (({size, color}) => 
@@ -30,7 +38,7 @@ export function AppRoutes() {
                     />
                 )}}
             />
-            <Tab.Screen
+            <Screen
                 name="Cadastro"
                 component={Register}
                 options={{ tabBarIcon: (({size, color}) => 
@@ -41,7 +49,7 @@ export function AppRoutes() {
                 />
             )}}
             />
-            <Tab.Screen
+            <Screen
                 name="Resumo"
                 component={Register}
                 options={{ tabBarIcon: (({size, color}) => 
@@ -52,6 +60,6 @@ export function AppRoutes() {
                 />
             )}}
             />
-        </Tab.Navigator>
+        </Navigator>
     );
 };
