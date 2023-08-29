@@ -7,14 +7,14 @@ interface Props extends TouchableOpacityProps {
     title: string
 }
 
-export function Button({title, ...rest}: Props){
-    return(
-        <RectButton>
-            <Container {...rest}>
+export function Button({ title, ...rest }: Props) {
+    return (
+        <GestureHandlerRootView>
+            <Container accessibilityRole="button" {...rest}>
                 <Title>
                     {title}
                 </Title>
             </Container>
-        </RectButton>
+        </GestureHandlerRootView>
     )
 }

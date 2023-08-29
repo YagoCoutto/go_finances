@@ -86,8 +86,8 @@ export function Dashboard() {
                             <UserName>Yago</UserName>
                         </User>
                     </UserInfo>
-                    <GestureHandlerRootView>
-                        <LogoutButton onPress={() => {}}>
+                    <GestureHandlerRootView >
+                        <LogoutButton onPress={() => { }}>
                             <IconOff name={'power'} />
                         </LogoutButton>
                     </GestureHandlerRootView>
@@ -120,9 +120,9 @@ export function Dashboard() {
 
                 <TransactionList
                     data={data}
-                    keyExtractor= {item => item.id}
+                    keyExtractor={item => item.id}
                     renderItem={({ item }) => <TransactionCard data={item} />}
-                    
+
                 />
             </Transactions>
         </Container>
