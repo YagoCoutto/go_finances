@@ -12,7 +12,7 @@ import {
 import { FlatList } from "react-native";
 import { categories } from "../../categories/categories";
 import { Button } from "../../components/Form/Button";
-import { NativeViewGestureHandler } from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface Category {
     key: string;
@@ -36,22 +36,22 @@ export function CategorySelect(
     return (
 
         <Container>
-            <NativeViewGestureHandler>
-                <Header>
-                    <Title>Categoria</Title>
-                </Header>
-            </NativeViewGestureHandler>
+            <Header>
+                <Title>Categoria</Title>
+            </Header>
             <FlatList
                 data={categories}
                 keyExtractor={(item) => item.key}
                 renderItem={({ item }) => (
-                    <Category
-                        onPress={() => handleCategorySelect(item)}
-                        isActive={category.key === item.key}
-                    >
-                        <Icon name={item.icon} />
-                        <Name>{item.name}</Name>
-                    </Category>
+                    <GestureHandlerRootView>
+                        <Category
+                            onPress={() => handleCategorySelect(item)}
+                            isActive={category.key === item.key}
+                        >
+                            <Icon name={item.icon} />
+                            <Name>{item.name}</Name>
+                        </Category>
+                    </GestureHandlerRootView>
                 )}
                 ItemSeparatorComponent={() => <Separator />}
             />

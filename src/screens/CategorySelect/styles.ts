@@ -14,7 +14,7 @@ export const Container = styled.View`
     background-color: ${({theme}) => theme.colors.background};
 `;
 
-export const Header = styled(RectButton)`
+export const Header = styled.View`
     width: 100%;
     height: ${RFValue(113)}px;
     background-color: ${({ theme }) => theme.colors.primary};
@@ -29,13 +29,13 @@ export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
 `;
 
-export const Category = styled.TouchableOpacity<CategoryProps>`
+export const Category = styled(RectButton)<CategoryProps>`
     width: 100%;
     flex-direction: row;
     align-items: center;
     padding: ${RFValue(15)}px;
 
-    background-color: ${({isActive}) => isActive ? theme.colors.sucess : theme.colors.background};
+    background-color: ${({isActive}) => isActive ? theme.colors.selection : theme.colors.background};
 `;
 
 export const Icon = styled(Feather)`

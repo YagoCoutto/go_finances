@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { 
-    Keyboard, 
-    Modal, 
+import React, { useEffect, useState } from "react";
+import {
+    Keyboard,
+    Modal,
     TouchableWithoutFeedback,
     Alert
- } from "react-native";
+} from "react-native";
 
 import { InputForm } from "../../components/Form/inputForm";
 import { useForm } from 'react-hook-form';
@@ -16,6 +16,7 @@ import { CategorySelectButton } from "../../components/Form/categorySelectButton
 import { CategorySelect } from "../CategorySelect";
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface formDate {
@@ -23,16 +24,18 @@ interface formDate {
     amount: string;
 }
 
+const dataKey = '@gofinances:transactions'
+
 const schema = Yup.object()
-.shape({
-    name: Yup
-    .string()
-    .required('Nome é obrigatório'),
-    amount: Yup
-    .number()
-    .typeError('Informe um valor numerico')
-    .positive('O valor não pode ser negativo')
-})
+    .shape({
+        name: Yup
+            .string()
+            .required('Nome é obrigatório'),
+        amount: Yup
+            .number()
+            .typeError('Informe um valor numerico')
+            .positive('O valor não pode ser negativo'),
+    })
 
 
 export function Register() {
@@ -47,7 +50,7 @@ export function Register() {
     const {
         control, //Para registrar os inputs do nosso formulario.
         handleSubmit, //Função que pega todas as informações do formulario e envia.
-        formState: {errors}
+        formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
     })
@@ -65,38 +68,58 @@ export function Register() {
         setModalCategorySelect(false)
     }
 
-    function handleRegister(form: formDate) {
-        if(!transactionType){ // ! exclamação para saber se não tem nada dentro de transactionType.
+    async function handleRegister(form: formDate) {
+        if (!transactionType) { // ! exclamação para saber se não tem nada dentro de transactionType.
             return Alert.alert('Selecione o tipo da transação');
         }
 
-        if(category.key === 'category'){
+        if (category.key === 'category') {
             console.log(category.key)
             return Alert.alert('Selecione uma categoria');
         }
-        
-       /* if(!form.name){
-            return Alert.alert('Informe um nome');
-        }
 
-        if(!form.amount){
-            return Alert.alert('Informe o valor');
-        }*/
+        /* if(!form.name){
+             return Alert.alert('Informe um nome');
+         }
+ 
+         if(!form.amount){
+             return Alert.alert('Informe o valor');
+         }*/
 
         const data = {
             name: form.name,
             amount: form.amount,
             transactionType,
             category: category.name
-            
+
         }
 
-        console.log(data)
+        //console.log(data)
+
+        const store = async () => {
+            try {
+                const jsonValue = JSON.stringify(data);
+                await AsyncStorage.setItem(dataKey, jsonValue);
+            } catch (error) {
+                console.log(error)
+                Alert.alert('Erro ao salvar')
+            }
+        }
+        store()
+        
+        useEffect(()=>{
+            async function loadData(){
+                const jsonData = await AsyncStorage.getItem(dataKey)
+                console.log(JSON.parse(jsonData!))
+            }
+            loadData()
+        }, [])
+
     }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>{/*onPress={Keyboard.dismiss}: para o teclado fechar quando clicar em qualquer canto da tela.*/}
-        
+
             <Container>
                 <Header>
                     <Title>

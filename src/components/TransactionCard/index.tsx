@@ -11,6 +11,7 @@ import {
     TypeTransacition,
     ViewT
 } from "./styles";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface CategoryProps {
     name: string; //salario
@@ -34,21 +35,22 @@ export function TransactionCard(
 ) {
     return (
         <ViewT>
-
-            <Container>
-                <Header>
-                    <Title>{data.title}</Title>
-                    <Amount type={data.type}>
-                        {data.type === 'negative' ? '- ' : ''}
-                        {data.amount}
-                    </Amount>
-                </Header>
-                <Footer>
-                    <IconTransaction name={data.category.icon} />
-                    <TypeTransacition>{data.category.name}</TypeTransacition>
-                    <DateTransaction>{data.dateTransaction}</DateTransaction>
-                </Footer>
-            </Container>
+            <GestureHandlerRootView>
+                <Container>
+                    <Header>
+                        <Title>{data.title}</Title>
+                        <Amount type={data.type}>
+                            {data.type === 'negative' ? '- ' : ''}
+                            {data.amount}
+                        </Amount>
+                    </Header>
+                    <Footer>
+                        <IconTransaction name={data.category.icon} />
+                        <TypeTransacition>{data.category.name}</TypeTransacition>
+                        <DateTransaction>{data.dateTransaction}</DateTransaction>
+                    </Footer>
+                </Container>
+            </GestureHandlerRootView>
         </ViewT>
     )
 };

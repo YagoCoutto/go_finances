@@ -15,8 +15,6 @@ import {
 
 import theme from './src/global/styles/theme' // Não precisa de chaves quando se utiliza a importação default
 import { AppRoutes } from './src/routes/app.routes';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,

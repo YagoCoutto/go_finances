@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components/native";
 import { Feather } from '@expo/vector-icons';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import theme from "../../global/styles/theme";
-
+import { RFValue } from "react-native-responsive-fontsize";
+import { RectButton } from "react-native-gesture-handler";
 
 interface typeProps {
     type: 'positive' | 'negative';
@@ -12,7 +11,7 @@ export const ViewT = styled.View`
     width: 100%;
 `;
 
-export const Container = styled.View<typeProps>`
+export const Container = styled(RectButton)<typeProps>`
     background-color: ${({ theme }) => theme.colors.shappe};
     width: 100%;
     height: ${RFValue(128)}px;
