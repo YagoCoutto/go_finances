@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import AppLoading from 'expo-app-loading'; // npx expo install expo-app-loading
 import SplashScreen from 'expo-splash-screen';
 
 

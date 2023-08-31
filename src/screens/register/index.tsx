@@ -6,8 +6,10 @@ import {
     Alert
 } from "react-native";
 
-import { InputForm } from "../../components/Form/inputForm";
 import { useForm } from 'react-hook-form';
+import { useNavigation } from "@react-navigation/native";
+
+import { InputForm } from "../../components/Form/inputForm";
 import { Button } from "../../components/Form/Button";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
 import { Container, Form, Header, Title, Fields, AlignField } from "./styles";
@@ -16,8 +18,8 @@ import { CategorySelectButton } from "../../components/Form/categorySelectButton
 import { CategorySelect } from "../CategorySelect";
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
 
 interface formDate {
     name: string;
@@ -31,6 +33,7 @@ const schema = Yup.object()
         name: Yup
             .string()
             .required('Nome é obrigatório'),
+            
         amount: Yup
             .number()
             .typeError('Informe um valor numerico')
@@ -47,9 +50,12 @@ export function Register() {
         name: 'Categoria',
     })
 
+    const navigation = useNavigation();
+
     const {
         control, //Para registrar os inputs do nosso formulario.
         handleSubmit, //Função que pega todas as informações do formulario e envia.
+        reset,
         formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
@@ -57,7 +63,6 @@ export function Register() {
 
     function handleTransactionTypeSelect(type: 'up' | 'down') {
         setTransactionType(type)
-        console.log(transactionType)
     }
 
     function handleOpenSelectCategory() {
@@ -86,36 +91,54 @@ export function Register() {
              return Alert.alert('Informe o valor');
          }*/
 
-        const data = {
+        const newTransaction = {
+            id: String(uuid.v4()),
             name: form.name,
             amount: form.amount,
             transactionType,
-            category: category.name
-
+            category: category.name,
+            date: new Date()
         }
-
         //console.log(data)
 
-        const store = async () => {
-            try {
-                const jsonValue = JSON.stringify(data);
-                await AsyncStorage.setItem(dataKey, jsonValue);
-            } catch (error) {
-                console.log(error)
-                Alert.alert('Erro ao salvar')
-            }
+        try {
+            const data = await AsyncStorage.getItem(dataKey)
+            const currentData = data ? JSON.parse(data) : [];
+
+            const dataFormatted = [
+                ...currentData,
+                newTransaction
+            ]
+
+            await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+            
+            setTransactionType('')
+            setCategory({
+                key: 'category',
+                name: 'Categoria',
+            })
+            reset()
+            navigation.navigate('Listagem' as never);
+        } catch (error) {
+            console.log(error)
+            Alert.alert('Erro ao salvar')
         }
-        store()
-        
-        useEffect(()=>{
-            async function loadData(){
-                const jsonData = await AsyncStorage.getItem(dataKey)
-                console.log(JSON.parse(jsonData!))
-            }
-            loadData()
-        }, [])
 
     }
+
+    useEffect(() => {
+        async function loadData() {
+            const data = await AsyncStorage.getItem(dataKey)
+            console.log(JSON.parse(data!))
+        }
+        loadData()
+
+        async function remove() {
+            await AsyncStorage.removeItem(dataKey)
+        }
+        remove()
+    }, [])
+
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>{/*onPress={Keyboard.dismiss}: para o teclado fechar quando clicar em qualquer canto da tela.*/}
