@@ -10,7 +10,7 @@ import {
     Footer
 } from "./styles";
 import { FlatList } from "react-native";
-import { categories } from "../../categories/categories";
+import { categories } from "../../utils/categories";
 import { Button } from "../../components/Form/Button";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 

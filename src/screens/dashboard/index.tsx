@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     Container,
@@ -20,60 +20,48 @@ import {
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard, TransactionCardProps } from "../../components/TransactionCard";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface DataListProps extends TransactionCardProps {
     id: string;
 }
 
 export function Dashboard() {
-    const data: DataListProps[] = [
-        {
-            id: '1',
-            type: 'positive',
-            title: 'Desenvolvimento de site',
-            amount: 'R$ 12.000,00',
-            category: {
-                name: 'Vendas',
-                icon: 'dollar-sign',
-            },
-            dateTransaction: '13/04/2020',
-        },
-        {
-            id: '2',
-            type: 'negative',
-            title: 'Hamburgueria Pizzy',
-            amount: 'R$ 59,00',
-            category: {
-                name: 'Alimentação',
-                icon: 'coffee',
-            },
-            dateTransaction: '13/04/2020',
-        },
+    const [date, setData] = useState<DataListProps[]>([]);
 
-        {
-            id: '3',
-            type: 'negative',
-            title: 'Aluguel do apartamento',
-            amount: 'R$ 770,00',
-            category: {
-                name: 'Casa',
-                icon: 'home',
-            },
-            dateTransaction: '13/04/2020',
-        },
+    async function loadTransaction() {
+        const dataKey = '@gofinances:transactions'
+        const response = await AsyncStorage.getItem(dataKey)
+        const transaction =  response ? JSON.parse(response) : [];
 
-        {
-            id: '4',
-            type: 'positive',
-            title: 'Salario',
-            amount: 'R$ 8.000,00',
-            category: {
-                name: 'Salario',
-                icon: 'home',
-            },
-            dateTransaction: '13/04/2020',
-        },
-    ]
+        const transactionsFormatted: DataListProps[] = transaction //O item:DataListProps ira devolver as inf formatada para DataListProps[]
+        .map((item: DataListProps) => { //item: DataListProps Está dizendo: cada item é um DataListProps
+            const amount = Number(item.amount).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            })
+
+            const date = Intl.DateTimeFormat('pt-BR',{
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            }).format(new Date(item.date))
+
+            return {
+                id: item.id,
+                name: item.name,
+                amount,
+                type: item.type,
+                category: item.category,
+                date,
+            }
+        });
+        setData(transactionsFormatted)        
+    }
+
+    useEffect(() => {
+        loadTransaction()
+    })
 
     return (
         <Container >
@@ -119,7 +107,7 @@ export function Dashboard() {
                 <TitleSection>Listagem</TitleSection>
 
                 <TransactionList
-                    data={data}
+                    data={date}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => <TransactionCard data={item} />}
 

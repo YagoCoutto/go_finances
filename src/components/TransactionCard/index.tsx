@@ -12,18 +12,15 @@ import {
     ViewT
 } from "./styles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { categories } from "../../utils/categories";
 
-interface CategoryProps {
-    name: string; //salario
-    icon: string;
-};
 
 export interface TransactionCardProps {
     type: 'positive' | 'negative';
-    title: string;
+    name: string;
     amount: string;
-    category: CategoryProps;
-    dateTransaction: string;
+    category: string;
+    date: string;
 };
 
 interface Props {
@@ -32,22 +29,25 @@ interface Props {
 
 export function TransactionCard(
     { data }: Props
-) {
+    ) {
+    const category = categories.filter(
+        item => item.key === data.category
+    );
     return (
         <ViewT>
             <GestureHandlerRootView>
                 <Container>
                     <Header>
-                        <Title>{data.title}</Title>
+                        <Title>{data.name}</Title>
                         <Amount type={data.type}>
                             {data.type === 'negative' ? '- ' : ''}
                             {data.amount}
                         </Amount>
                     </Header>
                     <Footer>
-                        <IconTransaction name={data.category.icon} />
-                        <TypeTransacition>{data.category.name}</TypeTransacition>
-                        <DateTransaction>{data.dateTransaction}</DateTransaction>
+                        <IconTransaction name={data.category} />
+                        <TypeTransacition>{category.}</TypeTransacition>
+                        <DateTransaction>{data.date}</DateTransaction>
                     </Footer>
                 </Container>
             </GestureHandlerRootView>
