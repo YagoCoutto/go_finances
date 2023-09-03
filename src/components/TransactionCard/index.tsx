@@ -16,7 +16,7 @@ import { categories } from "../../utils/categories";
 
 
 export interface TransactionCardProps {
-    type: 'positive' | 'negative';
+    type: 'up' | 'down';
     name: string;
     amount: string;
     category: string;
@@ -30,7 +30,7 @@ interface Props {
 export function TransactionCard(
     { data }: Props
     ) {
-    const category = categories.filter(
+    const [category] = categories.filter(
         item => item.key === data.category
     );
     return (
@@ -40,14 +40,14 @@ export function TransactionCard(
                     <Header>
                         <Title>{data.name}</Title>
                         <Amount type={data.type}>
-                            {data.type === 'negative' ? '- ' : ''}
+                            {data.type === 'down' ? '- ' : ''}
                             {data.amount}
                         </Amount>
                     </Header>
                     <Footer>
-                        <IconTransaction name={data.category} />
-                        <TypeTransacition>{category.}</TypeTransacition>
-                        <DateTransaction>{data.date}</DateTransaction>
+                        <IconTransaction name={category?.icon} />
+                        <TypeTransacition>{category?.name}</TypeTransacition>
+                        <DateTransaction>{data?.date}</DateTransaction>
                     </Footer>
                 </Container>
             </GestureHandlerRootView>

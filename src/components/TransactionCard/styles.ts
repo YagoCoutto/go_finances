@@ -4,14 +4,14 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
 interface typeProps {
-    type: 'positive' | 'negative';
+    type: 'up' | 'down';
 }
 
 export const ViewT = styled.View`
     width: 100%;
 `;
 
-export const Container = styled(RectButton)<typeProps>`
+export const Container = styled(RectButton) <typeProps>`
     background-color: ${({ theme }) => theme.colors.shappe};
     width: 100%;
     height: ${RFValue(128)}px;
@@ -35,7 +35,7 @@ export const Title = styled.Text<typeProps>`
 export const Amount = styled.Text<typeProps>`
         font-size: ${RFValue(20)}px;
         font-family: ${({ theme }) => theme.fonts.regular};
-        color: ${({ theme, type }) => type === 'positive' ? theme.colors.sucess : theme.colors.attention};
+        color: ${({ theme, type }) => type === 'up' ? theme.colors.sucess : theme.colors.attention};
     
     `;
 
@@ -71,17 +71,17 @@ export const IconTransaction = styled(Feather)`
 `;
 
 export const TypeTransacition = styled.Text`
-    position: absolute;
+position: absolute;
     padding-left: ${RFValue(56)}px;
-    font-size: ${RFValue(14)}px;
+    font-size: ${RFValue(13)}px;
     font-family: ${({ theme }) => theme.fonts.regular};
     color: ${({ theme }) => theme.colors.text};
-
     
 `;
 
 export const DateTransaction = styled.Text`
-    font-size: ${RFValue(14)}px;
+    font-size: ${RFValue(13)}px;
     font-family: ${({ theme }) => theme.fonts.regular};
     color: ${({ theme }) => theme.colors.text};
+
 `;
