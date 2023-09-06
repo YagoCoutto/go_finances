@@ -27,12 +27,13 @@ export interface DataListProps extends TransactionCardProps {
 }
 
 interface HighlightDataProps{
-    total:string
+    amount:string
 }
 
 interface HighlightData {
     entries: HighlightDataProps
     expensive: HighlightDataProps
+    total: HighlightDataProps
 }
 
 export function Dashboard() {
@@ -79,18 +80,27 @@ export function Dashboard() {
                 }
             });
         setTransaction(transactionsFormatted)
+        
+        const total = entriesTotal - expensiveTotal;
+
         setHighlightData({
             entries:{
-                total: entriesTotal.toLocaleString('pt-BR', {
+                amount: entriesTotal.toLocaleString('pt-BR', {
                     style:'currency',
                     currency:'BRL'
                 })
             },
             expensive:{
-                total: expensiveTotal.toLocaleString('pt-BR', {
+                amount: expensiveTotal.toLocaleString('pt-BR', {
                     style:'currency',
                     currency:'BRL'
                 })//1103
+            },
+            total: {
+                amount: total.toLocaleString('pt-BR', {
+                    style:'currency',
+                    currency:'BRL'
+                })
             }
         })
     }
@@ -120,14 +130,14 @@ export function Dashboard() {
             <HighlightCards>
                 <HighlightCard
                     title='Entradas'
-                    amount={HighlightData}
+                    amount={highlightData.entries.amount}
                     lastTransaction='Última entrada dia 06 de agosto'
                     type="up"
                 />
 
                 <HighlightCard
                     title='Saídas'
-                    amount='R$ 1.259,00'
+                    amount={highlightData.expensive.amount}
                     lastTransaction='Última saída dia 03 de agosto'
                     type="down"
                 />
