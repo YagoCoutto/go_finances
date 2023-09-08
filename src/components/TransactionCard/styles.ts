@@ -4,7 +4,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
 interface typeProps {
-    type: 'up' | 'down';
+    type: 'positive' | 'negative';
 }
 
 export const ViewT = styled.View`

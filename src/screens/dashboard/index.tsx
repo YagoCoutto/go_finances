@@ -56,11 +56,12 @@ export function Dashboard() {
                     currency: 'BRL'
                 })
 
-                if (item.type === 'up') {
+                if (item.type === 'positive') {
                     entriesTotal += Number(item.amount)
                 } else {
                     expensiveTotal += Number(item.amount)
                 }
+                console.log(entriesTotal)
 
 
                 const date = Intl.DateTimeFormat('pt-BR', {
@@ -107,7 +108,7 @@ export function Dashboard() {
 
     useEffect(() => {
         loadTransaction()
-    })
+    }, [])
 
     return (
         <Container >
@@ -130,14 +131,14 @@ export function Dashboard() {
             <HighlightCards>
                 <HighlightCard
                     title='Entradas'
-                    amount={highlightData.entries.amount}
+                    amount={highlightData?.entries?.amount}
                     lastTransaction='Última entrada dia 06 de agosto'
                     type="up"
                 />
 
                 <HighlightCard
                     title='Saídas'
-                    amount={highlightData.expensive.amount}
+                    amount={highlightData?.expensive?.amount}
                     lastTransaction='Última saída dia 03 de agosto'
                     type="down"
                 />
