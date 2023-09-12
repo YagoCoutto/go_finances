@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
 
 import {
     Container,
@@ -26,8 +27,8 @@ export interface DataListProps extends TransactionCardProps {
     id: string;
 }
 
-interface HighlightDataProps{
-    amount:string
+interface HighlightDataProps {
+    amount: string
 }
 
 interface HighlightData {
@@ -37,6 +38,7 @@ interface HighlightData {
 }
 
 export function Dashboard() {
+    const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransaction] = useState<DataListProps[]>([]);
     const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData)
 
@@ -56,13 +58,13 @@ export function Dashboard() {
                     currency: 'BRL'
                 })
 
-                if (item.type === 'positive') {
+                if (item.type === 'up') {
                     entriesTotal += Number(item.amount)
                 } else {
                     expensiveTotal += Number(item.amount)
                 }
-                console.log(entriesTotal)
-
+                console.log(entriesTotal, expensiveTotal)
+                console.log(item.type)
 
                 const date = Intl.DateTimeFormat('pt-BR', {
                     day: '2-digit',
@@ -81,26 +83,26 @@ export function Dashboard() {
                 }
             });
         setTransaction(transactionsFormatted)
-        
+
         const total = entriesTotal - expensiveTotal;
 
         setHighlightData({
-            entries:{
+            entries: {
                 amount: entriesTotal.toLocaleString('pt-BR', {
-                    style:'currency',
-                    currency:'BRL'
+                    style: 'currency',
+                    currency: 'BRL'
                 })
             },
-            expensive:{
+            expensive: {
                 amount: expensiveTotal.toLocaleString('pt-BR', {
-                    style:'currency',
-                    currency:'BRL'
+                    style: 'currency',
+                    currency: 'BRL'
                 })//1103
             },
             total: {
                 amount: total.toLocaleString('pt-BR', {
-                    style:'currency',
-                    currency:'BRL'
+                    style: 'currency',
+                    currency: 'BRL'
                 })
             }
         })
@@ -112,54 +114,59 @@ export function Dashboard() {
 
     return (
         <Container >
-            <Header>
-                <UserWrapper>
-                    <UserInfo>
-                        <Photo source={{ uri: 'https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png' }} />
-                        <User>
-                            <UserGreeting>Olá,</UserGreeting>
-                            <UserName>Yago</UserName>
-                        </User>
-                    </UserInfo>
-                    <GestureHandlerRootView >
-                        <LogoutButton onPress={() => { }}>
-                            <IconOff name={'power'} />
-                        </LogoutButton>
-                    </GestureHandlerRootView>
-                </UserWrapper>
-            </Header>
-            <HighlightCards>
-                <HighlightCard
-                    title='Entradas'
-                    amount={highlightData?.entries?.amount}
-                    lastTransaction='Última entrada dia 06 de agosto'
-                    type="up"
-                />
+            {
+                isLoading ? <ActivityIndicator /> : //se estiver carregando mostra activ se não o bloco abaixo 05:09 08
+                <>
+                    <Header>
+                        <UserWrapper>
+                            <UserInfo>
+                                <Photo source={{ uri: 'https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png' }} />
+                                <User>
+                                    <UserGreeting>Olá,</UserGreeting>
+                                    <UserName>Yago</UserName>
+                                </User>
+                            </UserInfo>
+                            <GestureHandlerRootView >
+                                <LogoutButton onPress={() => { }}>
+                                    <IconOff name={'power'} />
+                                </LogoutButton>
+                            </GestureHandlerRootView>
+                        </UserWrapper>
+                    </Header>
+                    <HighlightCards>
+                        <HighlightCard
+                            title='Entradas'
+                            amount={highlightData.entries.amount}
+                            lastTransaction='Última entrada dia 06 de agosto'
+                            type="up"
+                        />
 
-                <HighlightCard
-                    title='Saídas'
-                    amount={highlightData?.expensive?.amount}
-                    lastTransaction='Última saída dia 03 de agosto'
-                    type="down"
-                />
-                <HighlightCard
-                    title='Total'
-                    amount='R$ 16.141,00'
-                    lastTransaction='01 à 16 de abril'
-                    type="total"
-                />
-            </HighlightCards>
+                        <HighlightCard
+                            title='Saídas'
+                            amount={highlightData.expensive.amount}
+                            lastTransaction='Última saída dia 03 de agosto'
+                            type="down"
+                        />
+                        <HighlightCard
+                            title='Total'
+                            amount={highlightData.total.amount}
+                            lastTransaction='01 à 16 de abril'
+                            type="total"
+                        />
+                    </HighlightCards>
 
-            <Transactions>
-                <TitleSection>Listagem</TitleSection>
+                    <Transactions>
+                        <TitleSection>Listagem</TitleSection>
 
-                <TransactionList
-                    data={transactions}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => <TransactionCard data={item} />}
+                        <TransactionList
+                            data={transactions}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => <TransactionCard data={item} />}
 
-                />
-            </Transactions>
+                        />
+                    </Transactions>
+                </>
+            }
         </Container>
     )
 }
