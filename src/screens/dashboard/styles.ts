@@ -100,3 +100,9 @@ export const TransactionList = styled(
 })`
     height:100%;
 `;
+
+export const LoadingContainer = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+`;
