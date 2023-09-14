@@ -46,20 +46,13 @@ export function Dashboard() {
     const [transactions, setTransaction] = useState<DataListProps[]>([]);
     const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData)
 
-    function lastTransactionsDate (collection: DataListProps[], type: 'up' | 'down') {
-        const lastDate = new Date(collection.filter(item => item.type === type)
-        .map(item => item.date).at(-1))
-        return `Última entrada dia ${lastDate.getDate()} de ${lastDate.toLocaleDateString('pt-BR', {month: 'long'})}`
-    }
-    
 
     async function loadTransaction() {
         const dataKey = '@gofinances:transactions'
         const response = await AsyncStorage.getItem(dataKey)
         const transaction = response ? JSON.parse(response) : [];
-        
 
-        
+
         //variaveis
         let entriesTotal = 0;
         let expensiveTotal = 0;
@@ -76,8 +69,6 @@ export function Dashboard() {
                 } else {
                     expensiveTotal += Number(item.amount)
                 }
-                console.log(entriesTotal, expensiveTotal)
-                console.log(item.type)
 
                 const date = Intl.DateTimeFormat('pt-BR', {
                     day: '2-digit',
@@ -97,10 +88,29 @@ export function Dashboard() {
                 }
             });
         setTransaction(transactionsFormatted)
-        const lastTransactionsEntries = lastTransactionsDate(transactions, 'up')
-        const lastTransactionsExpensives = lastTransactionsDate(transactions, 'down')
 
-        //console.log(lastTransactionsDatePositive() + ' e ' + lastTransactionsDateNegative())
+        function lastTransactionsDate(
+            collection: DataListProps[],
+            type: 'up' | 'down' | 'total'
+        ) {
+
+            const lastDate = new Date(collection
+                .filter(transaction => transaction.type === type)
+                .map(transaction => transaction.date).at(-1));
+
+            const getDate = lastDate.getDate()
+            const getMonth = lastDate.toLocaleDateString('pt-BR', { month: 'long' })
+
+            return `${getDate} de ${getMonth}`
+
+        }
+
+
+        const lastTransactionsEntries = lastTransactionsDate(transaction, 'up')
+        const lastTransactionsExpensives = lastTransactionsDate(transaction, 'down')
+        const totalTransactions = lastTransactionsDate(transaction, 'down')
+
+
 
         const total = entriesTotal - expensiveTotal;
 
@@ -110,14 +120,14 @@ export function Dashboard() {
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTransactionsDate: lastTransactionsEntries
+                lastTransactionsDate: `Última entrada dia ${lastTransactionsEntries}`
             },
             expensive: {
                 amount: expensiveTotal.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTransactionsDate: lastTransactionsExpensives
+                lastTransactionsDate: `Última saída dia ${lastTransactionsExpensives}`
 
             },
             total: {
@@ -125,7 +135,7 @@ export function Dashboard() {
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTransactionsDate: ''
+                lastTransactionsDate: `01 à ${totalTransactions}`
 
             }
         });
@@ -175,13 +185,13 @@ export function Dashboard() {
                             <HighlightCard
                                 title='Saídas'
                                 amount={highlightData.expensive.amount}
-                                lastTransaction='Última saída dia 03 de agosto'
+                                lastTransaction={highlightData.expensive.lastTransactionsDate}
                                 type="down"
                             />
                             <HighlightCard
                                 title='Total'
                                 amount={highlightData.total.amount}
-                                lastTransaction='01 à 16 de abril'
+                                lastTransaction={highlightData.total.lastTransactionsDate}
                                 type="total"
                             />
                         </HighlightCards>
