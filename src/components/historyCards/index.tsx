@@ -1,5 +1,6 @@
 import React from "react";
-import { Amount, BoxCards, Cards, Title } from "./styles";
+import { Amount, BoxCards, CardBackground, Cards, Title } from "./styles";
+import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 
 interface Props {
     title: string,
@@ -7,14 +8,17 @@ interface Props {
 }
 
 export function HistoryCards(
-    {title, amount}:Props
-){
-    return(
+    { title, amount }: Props
+) {
+    return (
+
         <BoxCards>
-            <Cards>
-                <Title>{title}</Title>
-                <Amount>{amount}</Amount>
-            </Cards>
+            <CardBackground>
+                <Cards>
+                    <Title>{title}</Title>
+                    <Amount>{amount}</Amount>
+                </Cards>
+            </CardBackground>
         </BoxCards>
     );
 };
