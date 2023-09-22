@@ -2,6 +2,9 @@ import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-gesture-handler";
 
+export interface containerColorCard{
+    color: string
+}
 
 export const BoxCards = styled.View`
     width: 100%;
@@ -9,12 +12,12 @@ export const BoxCards = styled.View`
 
 `;
 
-export const CardBackground = styled.View`
+export const CardBackground = styled.View<containerColorCard>`
     width: 100%;
     height: ${RFValue(48)}px;
     align-items: flex-end;
     border-radius: 5px;
-    background-color: red;
+    background-color: ${({color}) => color};
     margin-bottom: 8px;
     `;
 

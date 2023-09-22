@@ -5,6 +5,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 export const Container = styled.View`
     flex: 1;
     background-color: ${({theme}) => theme.colors.background};
+    font-size: 20px;
 `;
 
 export const Header = styled.View`
@@ -22,8 +23,9 @@ export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
 `;
 
-export const Content = styled.ScrollView.attrs({
-    containerStyle: {flex:1, padding: 24}
+export const ScrollView = styled.ScrollView.attrs({
 })`
-`;
+    padding:24px
+`;      
+   
 

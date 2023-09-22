@@ -5,15 +5,15 @@ import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler
 interface Props {
     title: string,
     amount: string,
+    color:string
 }
 
 export function HistoryCards(
-    { title, amount }: Props
+    { title, amount, color }: Props
 ) {
     return (
-
         <BoxCards>
-            <CardBackground>
+            <CardBackground color={color}>
                 <Cards>
                     <Title>{title}</Title>
                     <Amount>{amount}</Amount>
