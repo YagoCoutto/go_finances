@@ -23,9 +23,12 @@ export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
 `;
 
-export const ScrollView = styled.ScrollView.attrs({
-})`
-    padding:24px
-`;      
-   
+export const ChartContainer = styled.View`
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    `;
 
+export const Content = styled.ScrollView`
+    padding: 0 24px
+`;
