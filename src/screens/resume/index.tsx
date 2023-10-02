@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Container, ScrollView, Header, Title, ChartContainer, Content } from "./styles";
+import { Container, Header, Title, ChartContainer, Content, MonthSelect, MonthSelectButton, SelectIcon, Month } from "./styles";
 import { HistoryCards } from "../../components/historyCards";
 import { categories } from "../../utils/categories";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
-import { Category } from "../CategorySelect/styles";
 import { RFValue } from "react-native-responsive-fontsize";
 import theme from "../../global/styles/theme";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { addMonths, subMonths, format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
+
 
 
 interface transactionData {
@@ -28,7 +32,9 @@ interface CategoryData {
 }
 
 export function Resume() {
+    const [selectDate, setSelectDate] = useState(new Date())
     const [totalCategory, setTotalCategory] = useState<CategoryData[]>([])
+   
     async function loadData() {
 
         const dataKey = '@gofinances:transactions'
@@ -42,7 +48,7 @@ export function Resume() {
             accumulator: number, expensive: transactionData) => {
             return accumulator + Number(expensive.amount);
         }, 0);
-        console.log(expensiveTotal)
+        console.log(expensiveTotal);
 
         const totalByCategory: CategoryData[] = []
         //percorrer as categorias
@@ -78,6 +84,16 @@ export function Resume() {
         setTotalCategory(totalByCategory)
         console.log(totalByCategory)
     }
+
+    function HandlerDate(action: 'next'|'prev'){
+        if (action === 'next'){
+            setSelectDate(addMonths(selectDate, 1))
+        }else{
+            setSelectDate(subMonths(selectDate, 1))
+        }
+    }
+
+
     useEffect(() => {
         loadData()
     }, [])
@@ -87,11 +103,28 @@ export function Resume() {
                 <Title>Resumo por categoria</Title>
             </Header>
 
-            <Content 
+            <Content
                 showHorizontalScrollIndicator={false}
-
-            
             >
+
+                <MonthSelect>
+                    <GestureHandlerRootView >
+                        <MonthSelectButton onPress={() => HandlerDate('prev')}>
+                            <SelectIcon name='chevron-left' />
+                        </MonthSelectButton>
+                    </GestureHandlerRootView>
+
+                    <Month>
+                        {format(selectDate, 'MMMM,yyyy', {locale:ptBR})/*8:29 15*/} 
+                    </Month>
+                    <GestureHandlerRootView>
+
+                        <MonthSelectButton onPress={() => HandlerDate('next')}>
+                            <SelectIcon name='chevron-right' />
+                        </MonthSelectButton>
+                    </GestureHandlerRootView>
+                </MonthSelect>
+
                 <ChartContainer>
 
                     <VictoryPie
@@ -99,7 +132,7 @@ export function Resume() {
                         x={"percentFormatted"}
                         y={"total"}
                         colorScale={totalCategory.map(item => item.color)}
-                        
+
                         style={{
                             labels: {
                                 fontSize: RFValue(18),
