@@ -2,8 +2,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import SplashScreen from 'expo-splash-screen';
-
-
 import {
   useFonts, //Função para carregar as fontes
   Poppins_400Regular,
@@ -11,10 +9,12 @@ import {
   Poppins_700Bold
 
 } from '@expo-google-fonts/poppins'
-
 import theme from './src/global/styles/theme' // Não precisa de chaves quando se utiliza a importação default
 import { AppRoutes } from './src/routes/app.routes';
+import { SignIn } from './src/screens/SignIn';
 import { StatusBar } from 'react-native';
+
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -28,11 +28,10 @@ export default function App() {
   }
 
   return (
-
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <StatusBar barStyle='light-content'/>
-          <AppRoutes />
+          <SignIn/>
         </NavigationContainer>
       </ThemeProvider>
   );

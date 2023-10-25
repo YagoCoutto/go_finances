@@ -1,5 +1,5 @@
 import React from "react";
-import {Platform} from "react-native";
+import { Platform } from "react-native";
 
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,9 +10,7 @@ import { Register } from "../screens/register";
 import { Resume } from "../screens/resume";
 
 
-import { styled } from "styled-components";
-
-const {Navigator, Screen} = createBottomTabNavigator();
+const { Navigator, Screen } = createBottomTabNavigator();
 
 export function AppRoutes() {
     const theme = useTheme()
@@ -24,44 +22,50 @@ export function AppRoutes() {
                 tabBarActiveTintColor: theme.colors.secondary,
                 tabBarInactiveTintColor: theme.colors.text,
                 tabBarLabelPosition: 'beside-icon',
-                tabBarStyle:{
+                tabBarStyle: {
                     paddingVertical: Platform.OS === 'ios' ? 20 : 0,
-                    height: 55,                    
+                    height: 55,
                 }
             }}
         >
             <Screen
                 name="Listagem"
                 component={Dashboard}
-                options={{ tabBarIcon: (({size, color}) => 
-                    <MaterialIcons
-                    name="format-list-bulleted"
-                    size={size}
-                    color={color}
-                    />
-                )}}
+                options={{
+                    tabBarIcon: (({ size, color }) =>
+                        <MaterialIcons
+                            name="format-list-bulleted"
+                            size={size}
+                            color={color}
+                        />
+                    )
+                }}
             />
             <Screen
                 name="Cadastro"
                 component={Register}
-                options={{ tabBarIcon: (({size, color}) => 
-                <MaterialIcons
-                name="attach-money"
-                size={size}
-                color={color}
-                />
-            )}}
+                options={{
+                    tabBarIcon: (({ size, color }) =>
+                        <MaterialIcons
+                            name="attach-money"
+                            size={size}
+                            color={color}
+                        />
+                    )
+                }}
             />
             <Screen
                 name="Resumo"
                 component={Resume}
-                options={{ tabBarIcon: (({size, color}) => 
-                <MaterialIcons
-                name="pie-chart"
-                size={size}
-                color={color}
-                />
-            )}}
+                options={{
+                    tabBarIcon: (({ size, color }) =>
+                        <MaterialIcons
+                            name="pie-chart"
+                            size={size}
+                            color={color}
+                        />
+                    )
+                }}
             />
         </Navigator>
     );
