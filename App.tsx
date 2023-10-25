@@ -14,6 +14,7 @@ import {
 
 import theme from './src/global/styles/theme' // Não precisa de chaves quando se utiliza a importação default
 import { AppRoutes } from './src/routes/app.routes';
+import { StatusBar } from 'react-native';
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -30,6 +31,7 @@ export default function App() {
 
       <ThemeProvider theme={theme}>
         <NavigationContainer>
+          <StatusBar barStyle='light-content'/>
           <AppRoutes />
         </NavigationContainer>
       </ThemeProvider>

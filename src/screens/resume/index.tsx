@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container, Header, Title, ChartContainer, Content, MonthSelect, MonthSelectButton, SelectIcon, Month } from "./styles";
 import { HistoryCards } from "../../components/historyCards";
 import { categories } from "../../utils/categories";
@@ -9,6 +9,7 @@ import theme from "../../global/styles/theme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { addMonths, subMonths, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 
@@ -52,7 +53,7 @@ export function Resume() {
 
         //filtras as transações de saida
         const expensives = responseFormatted
-            .filter((expensive: transactionData) => expensive.type === 'up' &&
+            .filter((expensive: transactionData) => expensive.type === 'down' &&
             new Date(expensive.date).getMonth() === selectDate.getMonth() &&
             new Date(expensive.date).getFullYear() === selectDate.getFullYear()
         );
@@ -99,9 +100,14 @@ export function Resume() {
         console.log(totalByCategory)
     }
     
-    useEffect(() => {
+    /*useEffect(() => {
         loadData()
-    }, [selectDate])
+    }, [selectDate])*/
+
+    useFocusEffect(useCallback(() =>{
+        loadData()
+    },[selectDate]))
+
     return (
         <Container>
             <Header>
