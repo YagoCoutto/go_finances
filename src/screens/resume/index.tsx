@@ -35,6 +35,15 @@ export function Resume() {
     const [selectDate, setSelectDate] = useState(new Date())
     const [totalCategory, setTotalCategory] = useState<CategoryData[]>([])
    
+    
+    function HandlerDate(action: 'next'|'prev'){
+        if (action === 'next'){
+            setSelectDate(addMonths(selectDate, 1))
+        }else{
+            setSelectDate(subMonths(selectDate, 1))
+        }
+    }
+    
     async function loadData() {
 
         const dataKey = '@gofinances:transactions'
@@ -42,13 +51,18 @@ export function Resume() {
         const responseFormatted = response ? JSON.parse(response) : [];
 
         //filtras as transações de saida
-        const expensives = responseFormatted.filter((expensive: transactionData) => expensive.type === 'up')
+        const expensives = responseFormatted
+            .filter((expensive: transactionData) => expensive.type === 'up' &&
+            new Date(expensive.date).getMonth() === selectDate.getMonth() &&
+            new Date(expensive.date).getFullYear() === selectDate.getFullYear()
+        );
+        console.log('Funciona?' + expensives)
+
 
         const expensiveTotal = expensives.reduce((
             accumulator: number, expensive: transactionData) => {
             return accumulator + Number(expensive.amount);
         }, 0);
-        console.log(expensiveTotal);
 
         const totalByCategory: CategoryData[] = []
         //percorrer as categorias
@@ -84,19 +98,10 @@ export function Resume() {
         setTotalCategory(totalByCategory)
         console.log(totalByCategory)
     }
-
-    function HandlerDate(action: 'next'|'prev'){
-        if (action === 'next'){
-            setSelectDate(addMonths(selectDate, 1))
-        }else{
-            setSelectDate(subMonths(selectDate, 1))
-        }
-    }
-
-
+    
     useEffect(() => {
         loadData()
-    }, [])
+    }, [selectDate])
     return (
         <Container>
             <Header>
@@ -115,7 +120,7 @@ export function Resume() {
                     </GestureHandlerRootView>
 
                     <Month>
-                        {format(selectDate, 'MMMM,yyyy', {locale:ptBR})/*8:29 15*/} 
+                        {format(selectDate, 'MMMM, yyyy', {locale:ptBR})/*8:29 15*/} 
                     </Month>
                     <GestureHandlerRootView>
 
