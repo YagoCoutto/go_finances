@@ -1,6 +1,6 @@
 import React from "react";
-import { RectButtonProps } from "react-native-gesture-handler";
-import {SvgProps} from 'react-native-svg'
+import { GestureHandlerRootView, RectButtonProps } from "react-native-gesture-handler";
+import { SvgProps } from 'react-native-svg'
 import { Button, ImageContainer, Text } from "./styled";
 
 interface Props extends RectButtonProps {
@@ -14,11 +14,13 @@ export function ButtonSocial({
     ...rest
 }: Props) {
     return (
-        <Button {...rest}>
-            <ImageContainer>
-                <Svg />
-            </ImageContainer>
-            <Text>{title}</Text>
-        </Button>
+        <GestureHandlerRootView>
+            <Button {...rest}>
+                <ImageContainer>
+                    <Svg />
+                </ImageContainer>
+                <Text>{title}</Text>
+            </Button>
+        </GestureHandlerRootView>
     )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react"; //Utilizar o hook para criar o contexto
 import {
     Container,
     Header,
@@ -6,15 +6,21 @@ import {
     Title,
     WrapperLogo,
     Footer,
-    SignInButton,
     FooterWrapper
 } from "./styles";
 import LogoSvg from "../../assets/Logo.svg"
 import GoogleSvg from "../../assets/google-icon 1.svg"
+import AppleSvg from "../../assets/apple.svg"
+
 import { RFValue } from "react-native-responsive-fontsize";
 import { ButtonSocial } from "../../components/SignInSocialButton";
 
+import {AuthContext} from '../../AuthContext'
+
 export function SignIn() {
+    const data = useContext(AuthContext)//Passo o authContext para o hook saber qual o contexto quero acessar
+    console.log(data)
+
     return (
         <Container>
             <Header>
@@ -38,8 +44,14 @@ export function SignIn() {
             <Footer>
                 <FooterWrapper>
                     <ButtonSocial
-                        title="Entrar" 
-                        svg={GoogleSvg}    
+                        title="Entrar com Google"
+                        svg={GoogleSvg}
+                    />
+                </FooterWrapper>
+                <FooterWrapper>
+                    <ButtonSocial
+                        title="Entrar com Apple"
+                        svg={AppleSvg}
                     />
                 </FooterWrapper>
             </Footer>

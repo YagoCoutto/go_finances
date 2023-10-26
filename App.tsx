@@ -13,7 +13,7 @@ import theme from './src/global/styles/theme' // Não precisa de chaves quando s
 import { AppRoutes } from './src/routes/app.routes';
 import { SignIn } from './src/screens/SignIn';
 import { StatusBar } from 'react-native';
-
+import { AuthContext } from './src/AuthContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,11 +28,13 @@ export default function App() {
   }
 
   return (
-      <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <StatusBar barStyle='light-content'/>
-          <SignIn/>
-        </NavigationContainer>
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <StatusBar barStyle='light-content' />
+        <AuthContext.Provider value={[]}> 
+          <SignIn />
+        </AuthContext.Provider>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
