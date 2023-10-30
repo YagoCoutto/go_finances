@@ -1,11 +1,15 @@
-import {
+import React, {
     ReactNode,
     createContext,
-    useContext
+    useContext,
+    useEffect
 } from 'react';
 
-//import * as Google from 'expo-google-app-auth';
-import * as Google from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+
+//web - 192850272751-un0h5ksh78k7bqs5bghn2r30lao38tht.apps.googleusercontent.com
+//android - 192850272751-mape32ffdc564occ2pb15m8k8oscuhef.apps.googleusercontent.com
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -25,6 +29,9 @@ interface IAuthContextData {
 
 const AuthContext = createContext({} as IAuthContextData); /*[] -> esse é o valor inicial*/
 
+WebBrowser.maybeCompleteAuthSession()
+
+
 function AuthProvider({ children }: AuthProviderProps) {
     const user = {
         id: '1231456',
@@ -32,42 +39,36 @@ function AuthProvider({ children }: AuthProviderProps) {
         email: 'yagoig8@gmail.com',
     }
 
+
     async function signInWithGoogle() {
-        try {
-            const result = await Google.logInAsync({
-                iosClientId: '192850272751-gar5ili1muqb7qkrhhedbph45d2np74f.apps.googleusercontent.com',
-                androidClientId: '192850272751-mape32ffdc564occ2pb15m8k8oscuhef.apps.googleusercontent.com',
-                scopes: ['profile', 'email']
-            });
+        const [acessToken, setAcessToken] = React.useState(null);
+        const [user, setUser] = React.useState(null);
+        const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+            clientId: "192850272751-un0h5ksh78k7bqs5bghn2r30lao38tht.apps.googleusercontent.com",
+            androidClientId: "192850272751-mape32ffdc564occ2pb15m8k8oscuhef.apps.googleusercontent.com"
 
-            if (result.type === 'success') {
-                const userLogged = {
-                    id: String(result.user.id),
-                    email: result.user.email!,
-                    name: result.user.name,
-                    photo: result.user.photoUrl!
-                };
-                console.log(userLogged)
+        });
+
+        React.useEffect(() => {
+            if (response?.type === "success") {
+                setAcessToken(response.authentication.accessToken);
+                acessToken && fetchUserInfo();
             }
-        } catch (error) {
-            throw new Error(error)
+        }, [response, acessToken])
+
+
+        async function fetchUserInfo() {
+            let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+                headers: {
+                    authorization: `Bearer ${acessToken}`
+                }
+            });
+            const useInfo = await response.json();
+            setUser(useInfo)
         }
+
+        return (
+            
+        )
     }
-
-    return (
-        <AuthContext.Provider value={{
-            user,
-            signInWithGoogle
-        }}>
-            {children}
-        </AuthContext.Provider>
-    )
 }
-
-function useAuth() {
-    const context = useContext(AuthContext)
-
-    return context;
-}
-
-export { AuthProvider, useAuth }

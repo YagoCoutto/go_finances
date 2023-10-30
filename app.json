@@ -1,10 +1,19 @@
 {
   "expo": {
     "name": "go_finances",
+    "scheme": "mycoolredirect",
     "slug": "go_finances",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "googleServicesFile": "./google-services.json"
+    },
+    "package": "com.authentication.go_finances",
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
   }
 }

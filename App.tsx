@@ -15,6 +15,7 @@ import { SignIn } from './src/screens/SignIn';
 import { StatusBar } from 'react-native';
 import { AuthContext } from './src/AuthContext';
 
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
