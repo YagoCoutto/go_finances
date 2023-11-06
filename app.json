@@ -8,12 +8,13 @@
       "**/*"
     ],
     "android": {
-      "googleServicesFile": "./google-services.json"
+      "package": "com.yagocouto.go_finances"
     },
     "package": "com.authentication.go_finances",
     "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist"
     },
-    "plugins": ["@react-native-google-signin/google-signin"]
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ]
   }
 }

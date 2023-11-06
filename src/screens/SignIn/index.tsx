@@ -16,16 +16,16 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { ButtonSocial } from "../../components/SignInSocialButton";
 
 import {AuthContext} from '../../AuthContext'
-import { useAuth } from "../../hooks/auth";
+//import { useAuth } from "../../hooks/auth";
 import { Alert } from "react-native";
 
 export function SignIn() {
     const data = useContext(AuthContext)//Passo o authContext para o hook saber qual o contexto quero acessar
-   const {user, signInWithGoogle} = useAuth()
+   //const {user, signInWithGoogle} = useAuth()
 
     async function handleSignInWithGoogle(){
         try{
-            await signInWithGoogle()
+            //await signInWithGoogle()
         }catch (error){
             console.log(error);
             Alert.alert('Não foi possivel conectar a conta Google')
@@ -57,7 +57,7 @@ export function SignIn() {
                 <FooterWrapper>
                     <ButtonSocial
                         title="Entrar com Google"
-                       // svg={GoogleSvg}
+                        svg={GoogleSvg}
                         onPress={handleSignInWithGoogle}
                     />
                 </FooterWrapper>
